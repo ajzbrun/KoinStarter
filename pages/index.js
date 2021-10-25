@@ -34,9 +34,9 @@ const CampaignIndex = ({campaigns}) => {
         <Layout>
             <h1>Open campaigns</h1>
 
-            <Card.Group items={actualCampaigns} />
+            <Button floated="right" content='Create campaign' icon='plus' labelPosition='left' primary />
 
-            <Button content='Create campaign' icon='plus' labelPosition='left' primary />
+            <Card.Group items={actualCampaigns} />
         </Layout>
     )
 }

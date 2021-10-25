@@ -3,7 +3,7 @@ import { Menu } from 'semantic-ui-react';
 
 const Header = () => {    
     return (
-        <Menu>
+        <Menu style={{ marginTop:'1em' }}>
             <Menu.Item>
                 KoinStarter
             </Menu.Item>
