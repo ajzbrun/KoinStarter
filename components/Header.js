@@ -5,7 +5,7 @@ const Header = () => {
     return (
         <Menu style={{ marginTop:'1em' }}>
             <Menu.Item>
-                KoinStarter
+                <b>KoinStarter</b>
             </Menu.Item>
             <Menu.Menu position="right">
                 <Menu.Item>

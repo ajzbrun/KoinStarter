@@ -32,7 +32,7 @@ const CampaignIndex = ({campaigns}) => {
 
     return (
         <Layout>
-            <h1>Open campaigns</h1>
+            <h3>Open campaigns</h3>
 
             <Button floated="right" content='Create campaign' icon='plus' labelPosition='left' primary />
 
