@@ -1,10 +1,13 @@
-import { loadGetInitialProps } from 'next/dist/shared/lib/utils';
 import React, { useState, useEffect } from 'react'
+import 'semantic-ui-css/semantic.min.css'
 import factory from '../ethereum/factory';
+import { Card } from 'semantic-ui-react';
 
 
 const CampaignIndex = ({campaigns}) => {
     
+    const[actualCampaigns, setActualCampaigns] = useState([]);
+
     //I commented this part because we're using the getInitialProps method (of Next.js) to fetch de campaigns from the backend
     /*const[campaigns, setCampaigns] = useState([]);
     useEffect(async () => {
@@ -12,15 +15,25 @@ const CampaignIndex = ({campaigns}) => {
         setCampaigns(all_campaigns);
     }, []);*/
 
+    useEffect(() => {
+        let items = campaigns.map((address) => {
+            return ({
+                header: address,
+                description: <a>View details</a>,
+                fluid: true //width 100% of its parent container
+            })
+        });
+
+        setActualCampaigns(items);
+    }, []);
+
     return (
-        <h1>
-            Campaign list:
-            {campaigns.map((c, idx) => {
-                return <h6>
-                    Campaign #{idx+1}: {c}
-                </h6>;
-            })}
-        </h1>
+        <div>
+            <h1>Campaigns list:</h1>
+
+            
+            <Card.Group items={actualCampaigns} />
+        </div>
     )
 }
 
