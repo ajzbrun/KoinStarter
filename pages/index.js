@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import 'semantic-ui-css/semantic.min.css'
 import factory from '../ethereum/factory';
-import { Card } from 'semantic-ui-react';
+import { Card, Button } from 'semantic-ui-react';
+
+//components
+import Layout from '../components/Layout';
 
 
 const CampaignIndex = ({campaigns}) => {
@@ -28,12 +31,13 @@ const CampaignIndex = ({campaigns}) => {
     }, []);
 
     return (
-        <div>
-            <h1>Campaigns list:</h1>
+        <Layout>
+            <h1>Open campaigns</h1>
 
-            
             <Card.Group items={actualCampaigns} />
-        </div>
+
+            <Button content='Create campaign' icon='plus' labelPosition='left' primary />
+        </Layout>
     )
 }
 
