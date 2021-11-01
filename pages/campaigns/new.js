@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { Button, Form, Input, Message } from 'semantic-ui-react';
 import factory from '../../ethereum/factory';
 import web3 from '../../ethereum/web3';
+import { Router } from '../../routes';
 
 //components
 import Layout from '../../components/Layout';
@@ -23,6 +24,8 @@ const newCampaign = () => {
                 .send({
                     from: accounts[0]
                 });
+
+            Router.pushRoute('/');
         } catch (err) {
             setErrorMessage(err.message);
         }
@@ -45,7 +48,7 @@ const newCampaign = () => {
                     />
                 </Form.Field>
                 <Form.Field>
-                    <label>By submitting I agree to the Terms and Conditions of KoinStarter</label>
+                    <label>By submitting you agree to the Terms and Conditions of KoinStarter</label>
                 </Form.Field>
 
                 <Message error header="Attention" content={errMessage} /> 

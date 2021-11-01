@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import factory from '../ethereum/factory';
 import { Card, Button } from 'semantic-ui-react';
+import { Link } from '../routes';
 
 //components
 import Layout from '../components/Layout';
@@ -10,7 +11,7 @@ const CampaignIndex = ({campaigns}) => {
     
     const[actualCampaigns, setActualCampaigns] = useState([]);
 
-    //I commented this part because we're using the getInitialProps method (of Next.js) to fetch de campaigns from the backend
+    //commented this part because we're using the getInitialProps method (of Next.js) to fetch de campaigns from the backend
     /*const[campaigns, setCampaigns] = useState([]);
     useEffect(async () => {
         const all_campaigns = await factory.methods.getDeployedCampaigns().call();
@@ -33,7 +34,9 @@ const CampaignIndex = ({campaigns}) => {
         <Layout>
             <h3>Open campaigns</h3>
 
-            <Button floated="right" content='Create campaign' icon='plus' labelPosition='left' primary />
+            <Link route='/campaigns/new'>
+                <Button floated="right" content='Create campaign' icon='plus' labelPosition='left' primary />
+            </Link>
 
             <Card.Group items={actualCampaigns} />
         </Layout>
