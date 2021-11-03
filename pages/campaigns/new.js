@@ -35,7 +35,7 @@ const newCampaign = () => {
 
     return (
         <Layout>
-            <h3>Create a Campaign</h3>
+            <h2>Create a Campaign</h2>
             
             <Form onSubmit={onSubmit} error={!!errMessage}>
                 <Form.Field>
