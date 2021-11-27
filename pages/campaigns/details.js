@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Grid } from 'semantic-ui-react';
+import { Card, Grid, Button } from 'semantic-ui-react';
 import Campaign from '../../ethereum/campaign';
 import web3 from '../../ethereum/web3';
+import {Link} from '../../routes';
 
 //components
 import Layout from '../../components/Layout';
@@ -52,13 +53,24 @@ const CampaignDetails = (summary) => {
         <Layout>
             <h2>Campaign details</h2>
 
-            <Grid>
-                <Grid.Column width={12}>
-                    {details.length != 0 ? <Card.Group items={details} /> : null }
-                </Grid.Column>
-                <Grid.Column width={4}>
-                    <ContributeForm/>
-                </Grid.Column>
+            <Grid doubling stackable>
+                <Grid.Row>
+                    <Grid.Column width={12}>
+                        {details.length != 0 ? <Card.Group items={details} /> : null }
+                    </Grid.Column>
+                    <Grid.Column width={4}>
+                        <ContributeForm campaignAddress={summary.campaignAddress} />
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                    <Grid.Column>
+                        <Link route={`/campaigns/${summary.campaignAddress}/requests`}>
+                            <a>
+                                <Button primary>View requests</Button>
+                            </a>
+                        </Link>
+                    </Grid.Column>
+                </Grid.Row>
             </Grid>
         </Layout>
     )
@@ -73,7 +85,8 @@ CampaignDetails.getInitialProps = async (props) => {
         balance: summary[1],
         requestsCount: summary[2],
         approversCount: summary[3],
-        manager: summary[4]
+        manager: summary[4],
+        campaignAddress: props.query.address
     };
 }
 
