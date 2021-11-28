@@ -10,11 +10,41 @@ const newRequest = (props) => {
     const[description, setDescription] = useState('');
     const[recipient_name, setRecipientName] = useState('');
     const[recipient_address, setRecipientAddress] = useState('');
+    const[errMessage, setErrorMessage] = useState('');
+    const[isLoading, setIsLoading] = useState(false);
+
+    const onSubmit = async event => {
+        event.preventDefault();
+        setErrorMessage('');
+        setIsLoading(true);
+
+        const campaign = Campaign(props.address);
+
+        try{
+            const accounts = await web3.eth.getAccounts();
+            await campaign.methods.createRequest(
+                description,
+                web3.utils.toWei(amount, 'ether'),
+                recipient_address,
+                recipient_name
+            ).send({ from: accounts[0] });
+
+            Router.pushRoute(`/campaigns/${props.address}/requests`);
+        } catch (err) { setErrorMessage(err.message); }
+
+        setIsLoading(false);
+    }
 
     return (
         <Layout>
+            <Link route={`/campaigns/${props.address}/requests`}>
+                <a>
+                    <Button size='mini'>Back</Button>
+                </a>
+            </Link>
+
             <h2>Create a request<br/><span style={{fontSize:'80%'}}><i>for the campaign  {props.address}</i></span></h2>
-            <Form>
+            <Form onSubmit={event => onSubmit(event)} error={!!errMessage}>
                 <Form.Field>
                     <label>Description</label>
                     <Input defaultValue={description} onChange={(event) => {setDescription(event.target.value)}} />
@@ -32,7 +62,8 @@ const newRequest = (props) => {
                     <Input defaultValue={recipient_address} onChange={(event) => {setRecipientAddress(event.target.value)}} />
                 </Form.Field>
 
-                <Button primary>Create!</Button>
+                <Message error header="Attention" content={errMessage} /> 
+                <Button primary loading={isLoading}>Create!</Button>
             </Form>
         </Layout>
     )
